@@ -1,0 +1,25 @@
+MODEL:
+    NUM_CLASSES: 5
+    BACKBONE:
+        NAME: 'resnet'
+        PRETRAINED: False
+        OUT_CHANNELS: [128, 256, 512, 256, 256, 256]
+        INPUT_CHANNELS: 3
+    PRIORS:
+        FEATURE_MAPS: [[30, 40], [15, 20], [8, 10], [4, 5], [2, 3], [1, 1]]  # [height, width]
+        STRIDES: [[8,8], [16, 16], [30, 32], [60, 64], [120, 106], [240, 160]] # [height, width]
+        MIN_SIZES: [30, 60, 111, 162, 213, 264]
+        MAX_SIZES: [60, 111, 162, 213, 264, 315]
+INPUT:
+    IMAGE_SIZE: [240, 320] # [height, width]
+DATASETS:
+    TRAIN: ("waymo_train",)
+    TEST: ("waymo_val", )
+SOLVER:
+    MAX_ITER: 120000
+    LR_STEPS: [80000, 100000]
+    GAMMA: 0.1
+    BATCH_SIZE: 32
+    LR: 1e-3
+OUTPUT_DIR: 'outputs/resnet'
+DATASET_DIR: "datasets"
